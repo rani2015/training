@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="spring_di">
+    <property environment="env"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <path id="spring_di.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-aop-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-aspects-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-beans-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-context-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-context-support-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-core-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-expression-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-instrument-tomcat-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-jdbc-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-jms-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-messaging-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-orm-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-oxm-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-test-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-tx-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-web-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-webmvc-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/spring-websocket-4.1.7.RELEASE.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/commons-logging-1.1.3.jar"/>
+        <pathelement location="../../downloads/spring_min_jars/commons-logging-api-1.1.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="spring_di.classpath"/>
+        </javac>
+    </target>
+       
+    <target name="App">
+        <java classname="spring_di.App" failonerror="true" fork="yes">
+            <classpath refid="spring_di.classpath"/>
+        </java>
+    </target>
+    <target name="App2">
+        <java classname="spring_di.App2" failonerror="true" fork="yes">
+            <classpath refid="spring_di.classpath"/>
+        </java>
+    </target>
+</project>
